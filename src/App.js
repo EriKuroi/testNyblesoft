@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.scss';
+import Header from './components/header/Header'
+import NoteCard from './components/noteCard/NoteCard'
+
+const hashtags = ['hop', 'pop']
+const title = 'Card for note'
+const text = 'Lorem ipsum dolor set amet'
+const handleClick = () => {
+  console.log('CLICK')
+}
+const handleSearch = () => {
+  console.log('find');
+};
 
 function App() {
+  // console.log(notes)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Check auto upload Netlify
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header handleSearch={handleSearch}></Header>
+      <NoteCard
+        title={title}
+        text={text}
+        hashtags={hashtags}
+        handleClick={handleClick}
+      ></NoteCard>
     </div>
   );
 }

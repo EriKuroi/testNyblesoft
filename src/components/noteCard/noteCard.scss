@@ -1,0 +1,56 @@
+@use '../../library'as lib;
+
+.note-card {
+    background-color: lib.$paper;
+    color: lib.$text;
+    width: 30vmin;
+    height: 30vmin;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 2vmin 0 0 2vmin;
+    box-shadow: -2px 4px 5px -4px #000000;
+
+    .headline {
+        padding: 0;
+        height: 5vmin;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        @include lib.head-color;
+
+        button {
+            width: 3.5vmin;
+            height: 3.5vmin;
+            background-color: inherit;
+            color: lib.$accents;
+            border: none;
+
+            &:hover {
+                color: inherit;
+                cursor: pointer;
+            }
+
+        }
+
+        .edit-note {
+            width: 4vmin;
+            height: 4vmin;
+        }
+    }
+
+    .note-card_tags-area {
+        width: 100%;
+        background-color: lib.$accents;
+        color: lib.$paper;
+    }
+
+    span {
+        margin-left: 1vmin;
+    }
+
+    p {
+        padding-left: 1vmin;
+    }
+
+}

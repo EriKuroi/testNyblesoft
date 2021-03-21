@@ -1,0 +1,33 @@
+@use '../../library';
+
+header {
+    width: 100vw - 4vw;
+    height: 10vh;
+    background-color: library.$text;
+    color: library.$headers;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2vw 0 2vw;
+    box-shadow: 0px 4px 5px -4px #000000;
+
+    h1 {
+        font-weight: bold;
+        font-size: 2rem;
+    }
+
+    form {
+        display: flex;
+        margin-left: 4vmin;
+
+        button {
+            width: 5vmin;
+            height: 5vmin;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            @include library.head-color;
+        }
+    }
+}

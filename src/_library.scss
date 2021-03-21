@@ -3,3 +3,14 @@ $blue: #457b9d;
 $lightblue: #a8dadc;
 $white: #f1faee;
 $red: #e63946;
+
+$background: $lightblue !default;
+$text: $darkblue !default;
+$headers: $white !default;
+$paper: $white !default;
+$accents: $blue !default;
+
+@mixin head-color {
+    background-color: $text;
+    color: $headers;
+}
