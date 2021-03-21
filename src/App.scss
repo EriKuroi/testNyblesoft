@@ -4,3 +4,23 @@ body{
   background-color: library.$background;
   color: library.$text;
 }
+main{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 30px;
+  .addButton{
+    width: 100px;
+    height: 100px;
+    margin-right: 30px;
+    font-size: 4rem;
+    background-color: library.$background;
+    color: library.$headers;
+    border-color: library.$headers;
+    border-style: solid;
+    &:hover{
+      background-color: library.$accents;
+      cursor: pointer;
+    }
+  }
+}

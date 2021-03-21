@@ -3,28 +3,33 @@
 .note-card {
     background-color: lib.$paper;
     color: lib.$text;
-    width: 30vmin;
-    height: 30vmin;
+    width: 250px;
+    height: 250px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: 2vmin 0 0 2vmin;
+    margin-right:  30px;
     box-shadow: -2px 4px 5px -4px #000000;
 
     .headline {
-        padding: 0;
-        height: 5vmin;
+        padding: 0 10px;
+        height: 50px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         @include lib.head-color;
+        font-family: 'Source Sans ', sans-serif;
+        font-size: 1.2rem;
 
         button {
-            width: 3.5vmin;
-            height: 3.5vmin;
+            width: 25px;
+            height: 25px;
             background-color: inherit;
             color: lib.$accents;
             border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
             &:hover {
                 color: inherit;
@@ -34,8 +39,8 @@
         }
 
         .edit-note {
-            width: 4vmin;
-            height: 4vmin;
+            width: 30px;
+            height: 30px;
         }
     }
 
@@ -47,6 +52,9 @@
 
     span {
         margin-left: 1vmin;
+        &:hover{
+            cursor: pointer;
+        }
     }
 
     p {

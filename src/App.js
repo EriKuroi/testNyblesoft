@@ -15,15 +15,18 @@ const handleSearch = () => {
 function App() {
   // console.log(notes)
   return (
-    <div>
+    <>
       <Header handleSearch={handleSearch}></Header>
-      <NoteCard
-        title={title}
-        text={text}
-        hashtags={hashtags}
-        handleClick={handleClick}
-      ></NoteCard>
-    </div>
+    <main>
+        <button className="addButton">+</button>
+        <NoteCard
+          title={title}
+          text={text}
+          hashtags={hashtags}
+          handleClick={handleClick}
+        ></NoteCard>
+    </main>
+    </>
   );
 }
 
