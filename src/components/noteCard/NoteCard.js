@@ -13,7 +13,9 @@ const NoteCard = ({ title, text, hashtags, handleClick }) => {
                 <button className="edit-note">
                     <EditLogo />
                 </button>
-                {title}
+                <div className="card-title">
+                    {title}
+                    </div>                
                 <button className="delete-note">
                     <DeleteLogo />
                 </button>
@@ -24,6 +26,7 @@ const NoteCard = ({ title, text, hashtags, handleClick }) => {
             </div>
         </div>
     )
+    
 };
 
 export default NoteCard;
