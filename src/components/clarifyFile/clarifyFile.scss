@@ -31,3 +31,40 @@
     }
 }
 
+.Modal {
+    position: absolute;
+    // display: flex;
+    // flex-flow: column;
+    // align-items: center;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    // width: 50%;
+    padding: 40px;
+    background-color: library.$white;
+    color: library.$darkblue;
+    button{
+        position: fixed;
+        top: 2px;
+        right: 2px;
+        width: 30px;
+        height: 30px;
+        font-weight: 800;
+        border: none;
+        background-color: library.$blue;
+        color: library.$white;
+    }
+    p{
+        margin-bottom: 10px;
+    }
+  }
+
+  .Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba( library.$darkblue, .7 );
+  }

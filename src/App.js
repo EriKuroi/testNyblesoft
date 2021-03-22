@@ -1,32 +1,35 @@
 import './App.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Header from './components/header/Header';
 import NoteCard from './components/noteCard/NoteCard';
 import ClarifyFile from './components/clarifyFile/ClarifyFile';
-// import notesFile from 'C:/Users/Eri Kurayami/notes.json'
 import uuid from 'react-uuid';
+
 function App() {
   const [notes, setNotes] = useState([]);
   const [notesLoaded, setNotesLoaded] = useState(false);
-
-  // useEffect(() => {
-
-  // }, []);
   const handleCardClick = () => {
     console.log('CLICK')
   };
   const handleSearch = () => {
     console.log('search')
   };
-  const handleFileButtonsClick = (e) => {
-    console.log(e.target.id)
+  const handleFile = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        setNotes(JSON.parse(e.target.result));
+        setNotesLoaded(true);
+      }
+      reader.readAsText(event.target.files[0]);
+    }
   };
   return (
     <>
       <Header handleClick={handleSearch}></Header>
       <main>
         {!notesLoaded && <>
-          <ClarifyFile handleClick={handleFileButtonsClick}/>
+          <ClarifyFile handleFile={handleFile} />
         </>}
         {notesLoaded && <>
           <button className="addButton">+</button>
