@@ -13,7 +13,7 @@ const NoteCard = ({ title, text, hashtags, handleClick }) => {
                 <button className="edit-note">
                     <EditLogo />
                 </button>
-                <div className="card-title">
+                <div className="card-title" title={title}>
                     {title}
                     </div>                
                 <button className="delete-note">
@@ -22,7 +22,7 @@ const NoteCard = ({ title, text, hashtags, handleClick }) => {
             </div>
             <p>{text}</p>
             <div className="note-card_tags-area">
-                {hashtags.map(elem => <span key={uuid()} >#{elem}</span>)}
+                {hashtags.map(elem => <span key={uuid()} title={`#${elem}`} >#{elem}</span>)}
             </div>
         </div>
     )

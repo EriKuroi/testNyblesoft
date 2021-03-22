@@ -1,19 +1,21 @@
 import './header.scss'
 import { ReactComponent as SearchLogo } from '../../assets/search.svg';
+import ReactTooltip from 'react-tooltip';
 
-const Header = ({ handleSearch }) => {
+const Header = ({ handleClick }) => {
     return (
         <header>
             <div>
                 <h1>W.E.I.R.D.</h1>
                 <p>Write, Edit, Indicate, Read, Delete</p>
             </div>
-            <form>
-                <input type="text" id="search-input" className="inactivated" />
-                <button className="search-button" onClick={handleSearch}>
+            <section data-tip="Search notes by hashtag" data-place="bottom">
+                <input type="text" id="search-input" />
+                <button className="search-button" onClick={handleClick}>
                     <SearchLogo />
                 </button>
-            </form>
+                <ReactTooltip />
+            </section>
         </header>
     )
 };

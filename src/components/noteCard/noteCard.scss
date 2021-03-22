@@ -17,17 +17,13 @@
     .headline {
         padding: 10px 10px;
         height: 40px;
-        // height: max-content;
-        // height: auto;
         display: flex;
-        // flex-flow: column;
         justify-content: space-between;
         align-items: center;
         @include lib.head-color;
         font-family: 'Source Sans ', sans-serif;
         font-size: 1.2rem;
         line-height: 1.2;
-        // text-overflow: ellipsis;
 
 
         .card-title {
@@ -36,7 +32,7 @@
             margin: 20px 0 0 5px;
             white-space: nowrap;
             overflow: hidden;
-            text-overflow: ellipsis;            
+            text-overflow: ellipsis;
         }
 
         button {
