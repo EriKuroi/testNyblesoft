@@ -1,5 +1,5 @@
 import './App.scss';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Header from './components/header/Header';
 import NoteCard from './components/noteCard/NoteCard';
 import ClarifyFile from './components/clarifyFile/ClarifyFile';
@@ -12,6 +12,7 @@ Modal.setAppElement('#root')
 
 function App() {
 
+  const textInput = useRef(null);
   const [notes, setNotes] = useState(notesData);
   const [notesLoaded, setNotesLoaded] = useState(true);
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -19,12 +20,13 @@ function App() {
   const [currentHashtags, setCurrentHashtags] = useState([]);
   const [currentTitle, setCurrentTitle] = useState('No title');
 
+
   function openModal() {
     setIsOpen(true);
   }
 
   function afterOpenModal() {
-    // references are now sync'd and can be accessed.
+    textInput.current.focus();
   }
 
   function closeModal() {
@@ -33,6 +35,7 @@ function App() {
   const handleCardClick = () => {
     console.log('CLICK')
   };
+
   const handleSearch = () => {
     console.log('search')
   };
@@ -57,7 +60,7 @@ function App() {
     noHashPartsArray.forEach((element, index) => {
       highlightedTextArray.push(element);
       if (currentHashtags[index]) {
-        highlightedTextArray.push(<mark>{currentHashtags[index]}</mark>);
+        highlightedTextArray.push(<mark key={uuid()}>{currentHashtags[index]}</mark>);
       };
     });
     return highlightedTextArray;
@@ -110,7 +113,7 @@ function App() {
           overlayClassName="note-overlay"
         >
           <button className="close-modal" onClick={closeModal}>x</button>
-          <div class="title-group">
+          <div className="title-group">
             <label htmlFor="tile">Title:</label>
             <input
               type="text"
@@ -129,6 +132,7 @@ function App() {
             <textarea
               name="text"
               id="text"
+              ref={textInput}
               onInput={handleInputText}
               onScroll={nandleScroll}
             />
