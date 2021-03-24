@@ -4,17 +4,6 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root')
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
-    }
-};
-
 const ClarifyFile = ({ handleFile    }) => {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalType, setModalType] = useState('show')
@@ -53,7 +42,6 @@ const ClarifyFile = ({ handleFile    }) => {
                 isOpen={modalIsOpen}
                 onAfterOpen={afterOpenModal}
                 onRequestClose={closeModal}
-                style={customStyles}
                 contentLabel="Example Modal"
                 className="Modal"
                 overlayClassName="Overlay"

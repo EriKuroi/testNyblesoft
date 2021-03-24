@@ -24,6 +24,7 @@
             box-shadow: inset 0px 1px 0px 0px #124d77;
 
         }
+
         &active {
             position: relative;
             top: 1px;
@@ -32,39 +33,36 @@
 }
 
 .Modal {
-    position: absolute;
-    // display: flex;
-    // flex-flow: column;
-    // align-items: center;
-    top: 40px;
-    left: 40px;
-    right: 40px;
-    bottom: 40px;
-    // width: 50%;
+    top: 40%;
+    left: 35%;
+    right: 35%;
+    bottom: 40%;
     padding: 40px;
-    background-color: library.$white;
-    color: library.$darkblue;
-    button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include library.modal;
+
+    $pad: 2px;
+
+    button {
         position: fixed;
-        top: 2px;
-        right: 2px;
+        top: 40%;
+        right:35%;
         width: 30px;
         height: 30px;
         font-weight: 800;
-        border: none;
-        background-color: library.$blue;
-        color: library.$white;
+        border: 3px solid library.$blue;
+        background-color: library.$white;
+        color: library.$blue;
     }
-    p{
-        margin-bottom: 10px;
-    }
-  }
 
-  .Overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba( library.$darkblue, .7 );
-  }
+    p {
+        margin-bottom: 10px;
+    }   
+}
+
+.Overlay {
+    @include library.overlay;
+
+}
