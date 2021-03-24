@@ -1,43 +1,36 @@
 import './App.scss';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
+import { saveAs } from 'file-saver';
+import Modal from 'react-modal';
+
 import Header from './components/header/Header';
 import NoteCard from './components/noteCard/NoteCard';
 import ClarifyFile from './components/clarifyFile/ClarifyFile';
-import Modal from 'react-modal';
-import { saveAs } from 'file-saver';
-import notesData from './notes.json';
-
-import uuid from 'react-uuid';
+import NoteEditor from './components/noteEditor/NoteEditor';
 
 Modal.setAppElement('#root')
 
 function App() {
 
-  const textInput = useRef(null);
-  const [notes, setNotes] = useState(notesData);
-  const [notesLoaded, setNotesLoaded] = useState(true);
+  const [notes, setNotes] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [currentNoteText, setCurrentNoteText] = useState('');
-  const [currentHashtags, setCurrentHashtags] = useState([]);
-  const [currentTitle, setCurrentTitle] = useState('No title');
-
-
+  const [loadModalIsOpen, setLoadModalIsOpen] = useState(false);
+  
   function openModal() {
     setIsOpen(true);
   }
-
+  const openLoadModal = () => {
+    setLoadModalIsOpen(true);
+  };
   function afterOpenModal() {
-    textInput.current.focus();
   }
 
   function closeModal() {
     setIsOpen(false);
-    setCurrentTitle('No title');
-    setCurrentNoteText('');
-    setCurrentHashtags([]);
+    setLoadModalIsOpen(false);   
   }
-  const handleCardClick = () => {
-    console.log('CLICK')
+  const handleCardClick = (e) => {
+    console.log(e.target)
   };
 
   const handleSearch = () => {
@@ -48,72 +41,39 @@ function App() {
       const reader = new FileReader();
       reader.onload = function (e) {
         setNotes(JSON.parse(e.target.result));
-        setNotesLoaded(true);
       }
       reader.readAsText(event.target.files[0]);
+      setLoadModalIsOpen(false);
     }
   };
   const addNote = () => {
     openModal()
   };
-  const applyHighlights = (text) => {
-    const regexp = /#\w*/g;
-    const debuggedText = text.replace(/\n$/g, `\n\n`);
-    const noHashPartsArray = debuggedText.split(regexp);
-    const highlightedTextArray = [];
-    noHashPartsArray.forEach((element, index) => {
-      highlightedTextArray.push(element);
-      if (currentHashtags[index]) {
-        highlightedTextArray.push(<mark key={uuid()}>#{currentHashtags[index]}</mark>);
-      };
-    });
-    return highlightedTextArray;
+  const saveToFile = (dataString) => {
+    const blob = new Blob([dataString], { type: "application/json" });
+    saveAs(blob, "notes.json");
   };
-  const handleTitleInput = (e) => {
-    setCurrentTitle(e.target.value);
-  };
-  const handleInputText = (e) => {
-    const text = e.target.value;
-    setCurrentNoteText(text);
-    const regexp = /#\w*/g;
-    if (text.match(regexp)) {
-      setCurrentHashtags(text.match(regexp).map(el => el.slice(1)));
-    }
-  }
-  const nandleScroll = (e) => {
-    const scrollPos = e.target.scrollTop;
-    e.target.parentNode.querySelector('.highlights').scrollTop = scrollPos;
-  }
-  const handleSave = () => {
-    const current = {};
-    current.header = currentTitle;
-    current.text = currentNoteText;
-    current.hashtags = currentHashtags;
-    console.log(currentHashtags);
+  const handleSave = (current) => {
     const newNotes = [...notes, current];
     setNotes(newNotes);
-    const notesToFile = JSON.stringify(newNotes);
-    const blob = new Blob([notesToFile], { type: "application/json" });
-    saveAs(blob, "notes.json");
+    const notesString = JSON.stringify(newNotes);
+    saveToFile(notesString);    
   };
   return (
     <>
       <Header handleClick={handleSearch}></Header>
       <main>
-        {!notesLoaded && <>
-          <ClarifyFile handleFile={handleFile} />
-        </>}
-        {notesLoaded && <>
-          <button className="addButton" onClick={addNote}>+</button>
-          {notes.length > 1 && notes.map(elem => <NoteCard
-            key={uuid()}
-            title={elem.header}
-            text={elem.text}
-            hashtags={elem.hashtags}
-            handleClick={handleCardClick}
-          />)}
-
-        </>}
+        <button className="addButton" onClick={addNote}>+</button>
+        {!!notes.length && notes.map(elem => <NoteCard
+          key={elem.id}
+          title={elem.header}
+          text={elem.text}
+          hashtags={elem.hashtags}
+          id={elem.id}
+          handleClick={handleCardClick}
+        />)
+        }
+        <button className="loadButton" onClick={openLoadModal}>Load</button>
         <Modal
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
@@ -122,40 +82,22 @@ function App() {
           className="note-modal"
           overlayClassName="note-overlay"
         >
-          <button className="close-modal" onClick={closeModal}>x</button>
-          <div className="title-group">
-            <label htmlFor="tile">Title:</label>
-            <input
-              type="text"
-              name="title"
-              id="title"
-              value={currentTitle}
-              onChange={handleTitleInput}
-            />
-          </div>
-          <div className="container">
-            <div className="backdrop" >
-              <div className="highlights">
-                {applyHighlights(currentNoteText)}
-              </div>
-            </div>
-            <textarea
-              name="text"
-              id="text"
-              ref={textInput}
-              onInput={handleInputText}
-              onScroll={nandleScroll}
-            />
-          </div>
-          <div className="note-footer">
-            <div className="note-hashtags">
-              {currentHashtags.length > 0 &&
-                currentHashtags.map(elem => <span key={uuid()}>#{elem}</span>)
-              }
-            </div>
-            <button className="saveButton" onClick={handleSave}>Save</button>
-          </div>
-
+          <NoteEditor
+            handleSave={handleSave}
+            closeModal={closeModal}
+          ></NoteEditor>
+        </Modal>
+        <Modal
+          isOpen={loadModalIsOpen}
+          onRequestClose={closeModal}
+          contentLabel="File load"
+          className="Modal"
+          overlayClassName="Overlay"
+        >
+          <ClarifyFile
+            handleFile={handleFile}
+            closeModal={closeModal}
+          ></ClarifyFile>
         </Modal>
       </main>
     </>

@@ -3,16 +3,16 @@ import uuid from 'react-uuid'
 import { ReactComponent as DeleteLogo } from '../../assets/trash-alt-solid.svg';
 import { ReactComponent as EditLogo } from '../../assets/edit-solid.svg';
 
-const NoteCard = ({ title, text, hashtags, handleClick }) => {
+const NoteCard = ({id, title, text, hashtags, handleClick }) => {
     return (
         <div
             className="note-card"
             onClick={handleClick}
         >
             <div className="headline">
-                <button className="edit-note">
+                {/* <button className="edit-note">
                     <EditLogo />
-                </button>
+                </button> */}
                 <div className="card-title" title={title}>
                     {title}
                     </div>                

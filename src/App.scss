@@ -11,7 +11,8 @@ main {
   align-items: center;
   padding: 30px;
 
-  .addButton {
+
+  .addButton, .loadButton {
     width: 100px;
     height: 100px;
     margin-right: 30px;
@@ -29,6 +30,10 @@ main {
       outline: none;
     }
   }
+  .loadButton{
+    width: 200px;
+    font-size: 2.5rem;
+  }
 }
 
 .note-modal {
@@ -39,121 +44,7 @@ main {
   bottom: 5%;
   padding: 40px;
   background-color: library.$background;
-  color: library.$text;
-
-  .close-modal {
-    position: fixed;
-    top: 5%;
-    right: 10%;
-    width: 30px;
-    height: 30px;
-    font-weight: 800;
-    border: none;
-    background-color: library.$blue;
-    color: library.$white;
-  }
-
-  .title-group {
-    margin-bottom: 10px;
-
-    label {
-      margin-right: 10px;
-      font-family: 'Source Sans ', sans-serif;
-      font-weight: bolder;
-
-    }
-
-    input {
-      width: 90%;
-      font-family: 'Source Sans ', sans-serif;
-      padding: 5px 10px;
-      color: library.$text;
-      background-color: library.$paper;
-      color: library.$text;
-      border: none;
-      &:focus{
-        outline: library.$blue solid 1px ;
-      }
-    }
-  }
-
-  .container {
-    width: 100%;
-    height: 80%;
-    position: relative;
-    margin-bottom: 10px;
-
-
-  }
-
-  .backdrop {
-    overflow: auto;
-    background-color: library.$paper;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    border-bottom: 5px solid library.$paper;
-
-  }
-
-  .highlights {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    color: transparent;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    padding: 1px 0 0 1px;
-  }
-
-  mark {
-    color: transparent;
-    background-color: library.$lightblue;
-  }
-
-  .note-footer {
-    height: 5%;
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-
-    .note-hashtags {
-      height: 100%;
-      width: 80%;
-      background-color: library.$blue;
-      color: library.$white;
-      padding: 10px;
-      text-align: center;
-      overflow-x: hidden;
-      word-wrap: break-word;
-      span{
-        margin-right: 5px;
-      }
-    }
-    .saveButton{
-      border: none;
-      background-color: library.$blue;
-      color: library.$white;
-      margin-left: 5px;
-      height: 52px;
-      width: 20%;
-      font-family: 'Source Sans ', sans-serif;
-      font-size: 1.3rem;
-      font-weight: bolder;
-      &:hover{
-        cursor: pointer;
-        box-shadow: 3px 3px 8px 3px rgba(library.$darkblue,0.6) inset;
-      }
-    }
-  }
-
+  color: library.$text;  
 }
 
 #text {
