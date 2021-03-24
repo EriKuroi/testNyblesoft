@@ -25,6 +25,9 @@ main {
       background-color: library.$accents;
       cursor: pointer;
     }
+    &focus{
+      outline: none;
+    }
   }
 }
 
@@ -69,7 +72,7 @@ main {
       color: library.$text;
       border: none;
       &:focus{
-        outline: none;
+        outline: library.$blue solid 1px ;
       }
     }
   }

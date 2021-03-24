@@ -4,6 +4,7 @@ import Header from './components/header/Header';
 import NoteCard from './components/noteCard/NoteCard';
 import ClarifyFile from './components/clarifyFile/ClarifyFile';
 import Modal from 'react-modal';
+import { saveAs } from 'file-saver';
 import notesData from './notes.json';
 
 import uuid from 'react-uuid';
@@ -31,6 +32,9 @@ function App() {
 
   function closeModal() {
     setIsOpen(false);
+    setCurrentTitle('No title');
+    setCurrentNoteText('');
+    setCurrentHashtags([]);
   }
   const handleCardClick = () => {
     console.log('CLICK')
@@ -60,7 +64,7 @@ function App() {
     noHashPartsArray.forEach((element, index) => {
       highlightedTextArray.push(element);
       if (currentHashtags[index]) {
-        highlightedTextArray.push(<mark key={uuid()}>{currentHashtags[index]}</mark>);
+        highlightedTextArray.push(<mark key={uuid()}>#{currentHashtags[index]}</mark>);
       };
     });
     return highlightedTextArray;
@@ -73,7 +77,7 @@ function App() {
     setCurrentNoteText(text);
     const regexp = /#\w*/g;
     if (text.match(regexp)) {
-      setCurrentHashtags(text.match(regexp));
+      setCurrentHashtags(text.match(regexp).map(el => el.slice(1)));
     }
   }
   const nandleScroll = (e) => {
@@ -82,9 +86,15 @@ function App() {
   }
   const handleSave = () => {
     const current = {};
-    current.title = currentTitle;
+    current.header = currentTitle;
     current.text = currentNoteText;
     current.hashtags = currentHashtags;
+    console.log(currentHashtags);
+    const newNotes = [...notes, current];
+    setNotes(newNotes);
+    const notesToFile = JSON.stringify(newNotes);
+    const blob = new Blob([notesToFile], { type: "application/json" });
+    saveAs(blob, "notes.json");
   };
   return (
     <>
@@ -140,7 +150,7 @@ function App() {
           <div className="note-footer">
             <div className="note-hashtags">
               {currentHashtags.length > 0 &&
-                currentHashtags.map(elem => <span key={uuid()}>{elem}</span>)
+                currentHashtags.map(elem => <span key={uuid()}>#{elem}</span>)
               }
             </div>
             <button className="saveButton" onClick={handleSave}>Save</button>
