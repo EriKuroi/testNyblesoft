@@ -7,15 +7,16 @@ import Header from './components/header/Header';
 import NoteCard from './components/noteCard/NoteCard';
 import ClarifyFile from './components/clarifyFile/ClarifyFile';
 import NoteEditor from './components/noteEditor/NoteEditor';
+import notesFile from './notes.json'
 
 Modal.setAppElement('#root')
 
 function App() {
 
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState(notesFile);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [loadModalIsOpen, setLoadModalIsOpen] = useState(false);
-  
+
   function openModal() {
     setIsOpen(true);
   }
@@ -27,10 +28,41 @@ function App() {
 
   function closeModal() {
     setIsOpen(false);
-    setLoadModalIsOpen(false);   
+    setLoadModalIsOpen(false);
   }
-  const handleCardClick = (e) => {
-    console.log(e.target)
+  const findCardIndex = (id) => notes.findIndex(elem => elem.id === id)
+
+  const deleteCard = (id) => {
+    let confirmed = window.confirm('Are you sure you want to delete this card? \n This action\'s result will be saved into new file');
+    if (confirmed) {
+      const newNotes = notes.map(el => el);
+      const index = findCardIndex(id)
+      newNotes.splice(index, 1);
+      setNotes(newNotes);
+      saveToFile(JSON.stringify(newNotes));
+    }
+  };
+  const editCard = (data) => {
+    console.log('card', data)
+  };
+  const handleHashtagClick = (hashtag) => {
+    console.log(hashtag)
+  };
+  const handleCardClick = (type, data) => {
+    switch (type) {
+      case 'del':
+        deleteCard(data);
+        break;
+      case 'hash':
+        handleHashtagClick(data);
+        break;
+      case 'card':
+        editCard(data);
+        break;
+      default:
+        throw console.error(`card Click Error`, type, data);
+    }
+
   };
 
   const handleSearch = () => {
@@ -57,7 +89,7 @@ function App() {
     const newNotes = [...notes, current];
     setNotes(newNotes);
     const notesString = JSON.stringify(newNotes);
-    saveToFile(notesString);    
+    saveToFile(notesString);
   };
   return (
     <>
@@ -70,7 +102,7 @@ function App() {
           text={elem.text}
           hashtags={elem.hashtags}
           id={elem.id}
-          handleClick={handleCardClick}
+          handleCardClick={handleCardClick}
         />)
         }
         <button className="loadButton" onClick={openLoadModal}>Load</button>
