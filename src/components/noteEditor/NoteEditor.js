@@ -1,6 +1,7 @@
 import './noteEditor.scss';
 import { useState, useRef, useEffect } from 'react';
 import uuid from 'react-uuid';
+import PropTypes from 'prop-types';
 
 const NoteEditor = ({ handleSave, closeModal, currentEdited }) => {
     const textInput = useRef(null);
@@ -13,6 +14,7 @@ const NoteEditor = ({ handleSave, closeModal, currentEdited }) => {
         setCurrentNoteText(note.text);
         setCurrentHashtags(note.hashtags);
     }
+
     useEffect(() => {
         textInput.current.focus();
         if (currentEdited) {
@@ -48,8 +50,6 @@ const NoteEditor = ({ handleSave, closeModal, currentEdited }) => {
         const scrollPos = e.target.scrollTop;
         e.target.parentNode.querySelector('.highlights').scrollTop = scrollPos;
     }
-
-
     const handleSaveClick = () => {
         const current = {};
         current.title = currentTitle;
@@ -57,7 +57,7 @@ const NoteEditor = ({ handleSave, closeModal, currentEdited }) => {
         current.hashtags = currentHashtags;
         current.id = `${uuid()}`;
         let type;
-        currentEdited? type = 'old': type = 'new';        
+        currentEdited ? type = 'old' : type = 'new';
         handleSave(type, current, currentEdited);
         closeModal()
     };
@@ -95,9 +95,32 @@ const NoteEditor = ({ handleSave, closeModal, currentEdited }) => {
                         currentHashtags.map(elem => <span key={uuid()}>#{elem}</span>)
                     }
                 </div>
-                <button id="save" className="saveButton" onClick={handleSaveClick}>Save</button>
+                <button
+                    id="save"
+                    className="saveButton"
+                    onClick={handleSaveClick}
+                >
+                    Save
+                </button>
             </div>
         </>
     )
 };
+
+NoteEditor.propTypes = {
+    handleSave: PropTypes.func, 
+    closeModal: PropTypes.func, 
+    currentEdited: PropTypes.shape({
+        id: PropTypes.string, 
+        title: PropTypes.string,
+        text: PropTypes.string,
+        hashtags: PropTypes.arrayOf(PropTypes.string)
+    })
+};
+NoteEditor.defaultProps = {
+    handleSave: () => { console.error('Oops, cant find handleSearch function') }, 
+    closeModal: () => { console.error('Oops, cant find handleSearch function') }, 
+    currentEdited: null
+};
+
 export default NoteEditor;

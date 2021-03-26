@@ -11,8 +11,8 @@ main {
   align-items: center;
   padding: 30px;
 
-
-  .addButton, .loadButton {
+  .addButton,
+  .loadButton {
     width: 100px;
     height: 100px;
     margin-right: 30px;
@@ -26,83 +26,89 @@ main {
       background-color: library.$accents;
       cursor: pointer;
     }
-    &focus{
+
+    &focus {
       outline: none;
     }
   }
-  .loadButton{
+
+  .loadButton {
     width: 200px;
     font-size: 2.5rem;
   }
-  .no-results-frame{
+
+  .no-results-frame {
     padding: 10px;
-    margin:0 40px 0 20px;
+    margin: 0 40px 0 20px;
     color: library.$white;
-    h1{font-weight: bold;
-        font-size: 2rem;}
+
+    h1 {
+      font-weight: bold;
+      font-size: 2rem;
+    }
   }
-  button{
+
+  button {
     color: inherit;
     background-color: library.$blue;
     border: none;
     cursor: pointer;
     width: 100%;
     padding: 5px;
-    &:hover{
+
+    &:hover {
       background-color: rgba(library.$blue, .9)
     }
 
   }
-}
 
-.note-modal {
-  @include library.modal;
-  top: 5%;
-  left: 10%;
-  right: 10%;
-  bottom: 5%;
-  padding: 40px;
-  background-color: library.$background;
-  color: library.$text;  
-}
+  .note-modal {
+    @include library.modal;
+    top: 5%;
+    left: 10%;
+    right: 10%;
+    bottom: 5%;
+    padding: 40px;
+    background-color: library.$background;
+    color: library.$text;
+  }
 
+  .note-overlay {
+    @include library.overlay;
+  }
 
+  .Modal {
+    top: 40%;
+    left: 35%;
+    right: 35%;
+    bottom: 40%;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include library.modal;
 
-.note-overlay {
-  @include library.overlay;
-}
+    $pad: 2px;
 
-.Modal {
-  top: 40%;
-  left: 35%;
-  right: 35%;
-  bottom: 40%;
-  padding: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @include library.modal;
-
-  $pad: 2px;
-
-  button {
+    button {
       position: fixed;
       top: 40%;
-      right:35%;
+      right: 35%;
       width: 30px;
       height: 30px;
       font-weight: 800;
       border: 3px solid library.$blue;
       background-color: library.$white;
       color: library.$blue;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
   }
 
-  p {
-      margin-bottom: 10px;
-  }   
-}
+  .Overlay {
+    @include library.overlay;
 
-.Overlay {
-  @include library.overlay;
-
+  }
 }

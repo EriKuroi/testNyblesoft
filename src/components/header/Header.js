@@ -1,5 +1,6 @@
 import './header.scss';
 import SearchForm from '../searchForm/SearchForm';
+import PropTypes from 'prop-types';
 
 const Header = ({ handleSearch }) => {
     return (
@@ -11,6 +12,13 @@ const Header = ({ handleSearch }) => {
             <SearchForm handleSearch={handleSearch} />
         </header>
     )
+};
+
+Header.propTypes = {
+    handleSearch: PropTypes.func,
+};
+Header.defaultProps = {
+    handleSearch: ()=>{console.error('Oops, cant find handleSearch function')}
 };
 
 export default Header;

@@ -1,7 +1,9 @@
 @use '../../library';
+
 .search-form {
     display: flex;
     margin-left: 4vmin;
+
     .search-button {
         width: 40px;
         height: 40px;
@@ -11,5 +13,4 @@
         border: none;
         @include library.head-color;
     }
-   
 }

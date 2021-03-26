@@ -2,6 +2,8 @@ import './searchForm.scss'
 import { useState } from 'react';
 import { ReactComponent as SearchLogo } from '../../assets/search.svg';
 import ReactTooltip from 'react-tooltip';
+import PropTypes from 'prop-types';
+
 const SearchForm = ({ handleSearch }) => {
     const [searchText, setSearchText] = useState('');
     const handleSearchInput = (e) => {
@@ -31,4 +33,12 @@ const SearchForm = ({ handleSearch }) => {
         </form>
     );
 };
+
+SearchForm.propTypes = {
+    handleSearch: PropTypes.func,
+};
+SearchForm.defaultProps = {
+    handleSearch: ()=>{console.error('Oops, cant find handleSearch function')}
+};
+
 export default SearchForm
