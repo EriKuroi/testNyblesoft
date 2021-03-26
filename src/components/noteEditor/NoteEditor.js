@@ -46,11 +46,11 @@ const NoteEditor = ({ handleSave, closeModal, currentEdited }) => {
         if (text.match(regexp)) {
             setCurrentHashtags(text.match(regexp).map(el => el.slice(1)));
         } else { setCurrentHashtags([]) };
-    }
+    };
     const nandleScroll = (e) => {
         const scrollPos = e.target.scrollTop;
         e.target.parentNode.querySelector('.highlights').scrollTop = scrollPos;
-    }
+    };
     const handleSaveClick = () => {
         const current = {};
         current.title = currentTitle;

@@ -1,4 +1,4 @@
-import './searchForm.scss'
+import './searchForm.scss';
 import { useState } from 'react';
 import { ReactComponent as SearchLogo } from '../../assets/search.svg';
 import ReactTooltip from 'react-tooltip';
@@ -8,7 +8,7 @@ const SearchForm = ({ handleSearch }) => {
     const [searchText, setSearchText] = useState('');
     const handleSearchInput = (e) => {
         setSearchText(e.target.value)
-    }
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         handleSearch(searchText);

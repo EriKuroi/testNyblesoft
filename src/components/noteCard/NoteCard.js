@@ -1,5 +1,5 @@
-import './noteCard.scss'
-import uuid from 'react-uuid'
+import './noteCard.scss';
+import uuid from 'react-uuid';
 import { ReactComponent as DeleteLogo } from '../../assets/trash-alt-solid.svg';
 import PropTypes from 'prop-types';
 

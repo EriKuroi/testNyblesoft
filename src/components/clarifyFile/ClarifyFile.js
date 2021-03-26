@@ -1,10 +1,8 @@
-import './clarifyFile.scss'
+import './clarifyFile.scss';
 import PropTypes from 'prop-types';
 
 const ClarifyFile = ({ loadFile, closeModal }) => {
-
     return (
-
         <>
             <button onClick={closeModal}>x</button>
             <div className="choose-file-area">
@@ -12,7 +10,6 @@ const ClarifyFile = ({ loadFile, closeModal }) => {
                 <input type="file" onChange={loadFile} />
                 <div id="test"></div>
             </div>
-
         </>
     )
 };
