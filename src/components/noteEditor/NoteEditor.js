@@ -2,15 +2,25 @@ import './noteEditor.scss';
 import { useState, useRef, useEffect } from 'react';
 import uuid from 'react-uuid';
 
-const NoteEditor = ({ handleSave, closeModal }) => {
+const NoteEditor = ({ handleSave, closeModal, currentEdited }) => {
     const textInput = useRef(null);
     const [currentNoteText, setCurrentNoteText] = useState('');
     const [currentHashtags, setCurrentHashtags] = useState([]);
     const [currentTitle, setCurrentTitle] = useState('No Title');
+    const [currentId, setCurrentId] = useState(null);
 
+    const applyCurrentNote = (note) => {
+        setCurrentTitle(note.title);
+        setCurrentNoteText(note.text);
+        setCurrentHashtags(note.hashtags);
+        setCurrentId(note.id);
+    }
     useEffect(() => {
         textInput.current.focus();
-    }, []);
+        if (currentEdited) {
+            applyCurrentNote(currentEdited);
+        }
+    }, [currentEdited]);
 
     const applyHighlights = (text) => {
         const regexp = /#\w*/g;
@@ -34,21 +44,28 @@ const NoteEditor = ({ handleSave, closeModal }) => {
         const regexp = /#\w*/g;
         if (text.match(regexp)) {
             setCurrentHashtags(text.match(regexp).map(el => el.slice(1)));
-        }else{ setCurrentHashtags([])};
+        } else { setCurrentHashtags([]) };
     }
     const nandleScroll = (e) => {
         const scrollPos = e.target.scrollTop;
         e.target.parentNode.querySelector('.highlights').scrollTop = scrollPos;
     }
-    
-    
+
+
     const handleSaveClick = () => {
         const current = {};
-        current.header = currentTitle;
+        current.title = currentTitle;
         current.text = currentNoteText;
         current.hashtags = currentHashtags;
         current.id = `${uuid()}`;
-        handleSave(current);
+
+        if (currentEdited) {
+            handleSave('old', current, currentId);
+            setCurrentId(current.id);
+        } else {
+            setCurrentId(current.id);
+            handleSave('new', current);
+        }
     };
     return (
         <>
@@ -60,7 +77,7 @@ const NoteEditor = ({ handleSave, closeModal }) => {
                     name="title"
                     id="title"
                     value={currentTitle}
-                    onChange={handleTitleInput}
+                    onInput={handleTitleInput}
                 />
             </div>
             <div className="container">
@@ -75,6 +92,7 @@ const NoteEditor = ({ handleSave, closeModal }) => {
                     ref={textInput}
                     onInput={handleInputText}
                     onScroll={nandleScroll}
+                    value={currentNoteText}
                 />
             </div>
             <div className="note-footer">

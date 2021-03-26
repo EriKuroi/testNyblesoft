@@ -47,22 +47,7 @@ main {
   color: library.$text;  
 }
 
-#text {
-  margin: 0;
-  border-radius: 0;
-  width: 99.5%;
-  height: 100%;
-  color: library.$text;
-  background-color: transparent;
-  resize: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border: none;
-  &:focus{
-    outline: none;
-  }
-}
+
 
 .note-overlay {
   @include library.overlay;

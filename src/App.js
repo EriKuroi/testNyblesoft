@@ -1,5 +1,5 @@
 import './App.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { saveAs } from 'file-saver';
 import Modal from 'react-modal';
 
@@ -16,6 +16,7 @@ function App() {
   const [notes, setNotes] = useState(notesFile);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [loadModalIsOpen, setLoadModalIsOpen] = useState(false);
+  const [nowInEdit, setNowInEdit] = useState(null);
 
   function openModal() {
     setIsOpen(true);
@@ -42,8 +43,10 @@ function App() {
       saveToFile(JSON.stringify(newNotes));
     }
   };
-  const editCard = (data) => {
-    console.log('card', data)
+  const editCard = (id) => {
+    const index = findCardIndex(id);
+    setNowInEdit(notes[index]);
+    openModal()
   };
   const handleHashtagClick = (hashtag) => {
     console.log(hashtag)
@@ -85,8 +88,16 @@ function App() {
     const blob = new Blob([dataString], { type: "application/json" });
     saveAs(blob, "notes.json");
   };
-  const handleSave = (current) => {
-    const newNotes = [...notes, current];
+  const handleSave = (type, current, oldId) => {
+    const newNotes = notes.map(elem => elem)
+    if (type === 'new') {
+      newNotes.push(current);
+    } else if (type === 'old') {
+      const index = findCardIndex(oldId);
+      newNotes[index] = current
+    } else {
+      throw console.error('cant save', type, current);
+    }
     setNotes(newNotes);
     const notesString = JSON.stringify(newNotes);
     saveToFile(notesString);
@@ -98,7 +109,7 @@ function App() {
         <button className="addButton" onClick={addNote}>+</button>
         {!!notes.length && notes.map(elem => <NoteCard
           key={elem.id}
-          title={elem.header}
+          title={elem.title}
           text={elem.text}
           hashtags={elem.hashtags}
           id={elem.id}
@@ -117,6 +128,7 @@ function App() {
           <NoteEditor
             handleSave={handleSave}
             closeModal={closeModal}
+            currentEdited={nowInEdit}
           ></NoteEditor>
         </Modal>
         <Modal
