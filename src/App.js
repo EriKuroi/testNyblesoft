@@ -1,5 +1,5 @@
 import './App.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { saveAs } from 'file-saver';
 import Modal from 'react-modal';
 
@@ -17,7 +17,6 @@ function App() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [loadModalIsOpen, setLoadModalIsOpen] = useState(false);
   const [nowInEdit, setNowInEdit] = useState(null);
-
   function openModal() {
     setIsOpen(true);
   }
@@ -104,7 +103,7 @@ function App() {
   };
   return (
     <>
-      <Header handleClick={handleSearch}></Header>
+      <Header handleSearch={handleSearch}></Header>
       <main>
         <button className="addButton" onClick={addNote}>+</button>
         {!!notes.length && notes.map(elem => <NoteCard
