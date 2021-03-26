@@ -2,18 +2,16 @@ import './noteEditor.scss';
 import { useState, useRef, useEffect } from 'react';
 import uuid from 'react-uuid';
 
-const NoteEditor = ({ handleSave, closeModal, currentEdited, modalIsOpen }) => {
+const NoteEditor = ({ handleSave, closeModal, currentEdited }) => {
     const textInput = useRef(null);
     const [currentNoteText, setCurrentNoteText] = useState('');
     const [currentHashtags, setCurrentHashtags] = useState([]);
     const [currentTitle, setCurrentTitle] = useState('No Title');
-    const [currentId, setCurrentId] = useState(null);
 
     const applyCurrentNote = (note) => {
         setCurrentTitle(note.title);
         setCurrentNoteText(note.text);
         setCurrentHashtags(note.hashtags);
-        setCurrentId(note.id);
     }
     useEffect(() => {
         textInput.current.focus();
@@ -60,7 +58,7 @@ const NoteEditor = ({ handleSave, closeModal, currentEdited, modalIsOpen }) => {
         current.id = `${uuid()}`;
         let type;
         currentEdited? type = 'old': type = 'new';        
-        handleSave(type, current, currentId);
+        handleSave(type, current, currentEdited);
         closeModal()
     };
     return (

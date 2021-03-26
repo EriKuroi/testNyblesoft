@@ -3,7 +3,6 @@ import uuid from 'react-uuid'
 import { ReactComponent as DeleteLogo } from '../../assets/trash-alt-solid.svg';
 
 const NoteCard = ({ id, title, text, hashtags, handleCardClick }) => {
-
     const handleClick = (e) => {
         if (e.target.tagName.toLowerCase() === 'span') {
             handleCardClick('hash', e.target.innerText);

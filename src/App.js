@@ -8,7 +8,7 @@ import NoteCard from './components/noteCard/NoteCard';
 import ClarifyFile from './components/clarifyFile/ClarifyFile';
 import NoteEditor from './components/noteEditor/NoteEditor';
 import notesFile from './notes.json'
-import uuid from 'react-uuid';
+import mockSearchResult from './mockSearchResult.json';
 
 Modal.setAppElement('#root')
 
@@ -18,6 +18,7 @@ function App() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [loadModalIsOpen, setLoadModalIsOpen] = useState(false);
   const [nowInEdit, setNowInEdit] = useState(null);
+  const [searchResults, setSearchresults] = useState(mockSearchResult);
 
   function openModal() {
     setIsOpen(true);
@@ -91,12 +92,12 @@ function App() {
     const blob = new Blob([dataString], { type: "application/json" });
     saveAs(blob, "notes.json");
   };
-  const handleSave = (type, current, oldId) => {
+  const handleSave = (type, current, old) => {
     const newNotes = notes.map(elem => elem)
     if (type === 'new') {
       newNotes.push(current);
     } else if (type === 'old') {
-      const index = findCardIndex(oldId);
+      const index = findCardIndex(old.id);
       newNotes[index] = current
     } else {
       throw console.error('cant save', type, current);
@@ -105,20 +106,23 @@ function App() {
     const notesString = JSON.stringify(newNotes);
     saveToFile(notesString);
   };
+  const constructCards =(array)=>{
+    return array.map(elem => <NoteCard
+      key={elem.id}
+      title={elem.title}
+      text={elem.text}
+      hashtags={elem.hashtags}
+      id={elem.id}
+      handleCardClick={handleCardClick}
+    />);
+  };
   return (
     <>
       <Header handleSearch={handleSearch}></Header>
       <main>
-        <button className="addButton" onClick={addNote}>+</button>
-        {!!notes.length && notes.map(elem => <NoteCard
-          key={elem.id}
-          title={elem.title}
-          text={elem.text}
-          hashtags={elem.hashtags}
-          id={elem.id}
-          handleCardClick={handleCardClick}
-        />)
-        }
+        <button className="addButton" onClick={addNote}>+</button>      
+        {!searchResults && !!notes.length && constructCards(notes)}
+        {searchResults && constructCards(searchResults)}
         <button className="loadButton" onClick={openLoadModal}>Load</button>
         <Modal
           isOpen={modalIsOpen}
