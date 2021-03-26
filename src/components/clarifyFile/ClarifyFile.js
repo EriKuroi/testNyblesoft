@@ -1,7 +1,7 @@
 import './clarifyFile.scss'
 import PropTypes from 'prop-types';
 
-const ClarifyFile = ({ handleFile, closeModal }) => {
+const ClarifyFile = ({ loadFile, closeModal }) => {
 
     return (
 
@@ -9,7 +9,7 @@ const ClarifyFile = ({ handleFile, closeModal }) => {
             <button onClick={closeModal}>x</button>
             <div className="choose-file-area">
                 <p>Show us where your save file is located</p>
-                <input type="file" onChange={handleFile} />
+                <input type="file" onChange={loadFile} />
                 <div id="test"></div>
             </div>
 
@@ -18,11 +18,11 @@ const ClarifyFile = ({ handleFile, closeModal }) => {
 };
 
 ClarifyFile.propTypes = {
-    handleFile: PropTypes.func,
+    loadFile: PropTypes.func,
     closeModal: PropTypes.func
 };
 ClarifyFile.defaultProps = {
-    handleFile: () => { console.error('Oops, cant find handleFile function') },
+    loadFile: () => { console.error('Oops, cant find loadFile function') },
     closeModal: () => { console.error('Oops, cant find closeModal function') }
 };
 

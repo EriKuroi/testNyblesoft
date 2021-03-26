@@ -7,9 +7,9 @@ import Header from './components/header/Header';
 import NoteCard from './components/noteCard/NoteCard';
 import ClarifyFile from './components/clarifyFile/ClarifyFile';
 import NoteEditor from './components/noteEditor/NoteEditor';
-import notesFile from './notes.json'
+import notesFile from './notes.json';
 
-Modal.setAppElement('#root')
+Modal.setAppElement('#root');
 
 function App() {
 
@@ -25,16 +25,12 @@ function App() {
   const openLoadModal = () => {
     setLoadModalIsOpen(true);
   };
-  function afterOpenModal() {
-  }
-
   function closeModal() {
     setIsOpen(false);
     setLoadModalIsOpen(false);
     setNowInEdit(null);
-
   }
-  const findCardIndex = (id) => notes.findIndex(elem => elem.id === id)
+
   const handleSearch = (searchText) => {
     const searchResultsArray = notes.reduce((acc, note) => {
       if (note.hashtags.find(hashtag => hashtag === searchText)) {
@@ -46,9 +42,14 @@ function App() {
   };
   const handleNoSearchClick = () => {
     setSearchresults(null);
-  }
+  };
+   
+  const addNote = () => {
+    openModal()
+  };
+  const findCardIndex = (id) => notes.findIndex(elem => elem.id === id);
   const deleteCard = (id) => {
-    let confirmed = window.confirm('Are you sure you want to delete this card? \n This action\'s result will be saved into new file');
+    let confirmed = window.confirm('Are you sure you want to delete this note? \n This action\'s result will be saved into new file');
     if (confirmed) {
       const newNotes = notes.map(el => el);
       const index = findCardIndex(id)
@@ -79,11 +80,9 @@ function App() {
       default:
         throw console.error(`card Click Error`, type, data);
     }
-
   };
-
   
-  const handleFile = (event) => {
+  const loadFile = (event) => {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.onload = function (e) {
@@ -92,10 +91,7 @@ function App() {
       reader.readAsText(event.target.files[0]);
       setLoadModalIsOpen(false);
     }
-  };
-  const addNote = () => {
-    openModal()
-  };
+  }; 
   const saveToFile = (dataString) => {
     const blob = new Blob([dataString], { type: "application/json" });
     saveAs(blob, "notes.json");
@@ -114,6 +110,7 @@ function App() {
     const notesString = JSON.stringify(newNotes);
     saveToFile(notesString);
   };
+
   const constructCards = (array) => {
     return array.map(elem => <NoteCard
       key={elem.id}
@@ -147,7 +144,6 @@ function App() {
         </button>
         <Modal
           isOpen={modalIsOpen}
-          onAfterOpen={afterOpenModal}
           onRequestClose={closeModal}
           contentLabel="Edit note"
           className="note-modal"
@@ -168,7 +164,7 @@ function App() {
           overlayClassName="Overlay"
         >
           <ClarifyFile
-            handleFile={handleFile}
+            loadFile={loadFile}
             closeModal={closeModal}
           ></ClarifyFile>
         </Modal>
