@@ -8,6 +8,7 @@ import NoteCard from './components/noteCard/NoteCard';
 import ClarifyFile from './components/clarifyFile/ClarifyFile';
 import NoteEditor from './components/noteEditor/NoteEditor';
 import notesFile from './notes.json'
+import uuid from 'react-uuid';
 
 Modal.setAppElement('#root')
 
@@ -17,6 +18,7 @@ function App() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [loadModalIsOpen, setLoadModalIsOpen] = useState(false);
   const [nowInEdit, setNowInEdit] = useState(null);
+
   function openModal() {
     setIsOpen(true);
   }
@@ -29,6 +31,8 @@ function App() {
   function closeModal() {
     setIsOpen(false);
     setLoadModalIsOpen(false);
+    setNowInEdit(null);
+
   }
   const findCardIndex = (id) => notes.findIndex(elem => elem.id === id)
 
@@ -128,6 +132,7 @@ function App() {
             handleSave={handleSave}
             closeModal={closeModal}
             currentEdited={nowInEdit}
+            modalIsOpen={modalIsOpen}
           ></NoteEditor>
         </Modal>
         <Modal

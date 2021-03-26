@@ -2,7 +2,7 @@ import './noteEditor.scss';
 import { useState, useRef, useEffect } from 'react';
 import uuid from 'react-uuid';
 
-const NoteEditor = ({ handleSave, closeModal, currentEdited }) => {
+const NoteEditor = ({ handleSave, closeModal, currentEdited, modalIsOpen }) => {
     const textInput = useRef(null);
     const [currentNoteText, setCurrentNoteText] = useState('');
     const [currentHashtags, setCurrentHashtags] = useState([]);
@@ -58,14 +58,10 @@ const NoteEditor = ({ handleSave, closeModal, currentEdited }) => {
         current.text = currentNoteText;
         current.hashtags = currentHashtags;
         current.id = `${uuid()}`;
-
-        if (currentEdited) {
-            handleSave('old', current, currentId);
-            setCurrentId(current.id);
-        } else {
-            setCurrentId(current.id);
-            handleSave('new', current);
-        }
+        let type;
+        currentEdited? type = 'old': type = 'new';        
+        handleSave(type, current, currentId);
+        closeModal()
     };
     return (
         <>
