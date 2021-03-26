@@ -1,0 +1,15 @@
+@use '../../library';
+.search-form {
+    display: flex;
+    margin-left: 4vmin;
+    .search-button {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        @include library.head-color;
+    }
+   
+}

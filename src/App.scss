@@ -52,3 +52,38 @@ main {
 .note-overlay {
   @include library.overlay;
 }
+
+.Modal {
+  top: 40%;
+  left: 35%;
+  right: 35%;
+  bottom: 40%;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include library.modal;
+
+  $pad: 2px;
+
+  button {
+      position: fixed;
+      top: 40%;
+      right:35%;
+      width: 30px;
+      height: 30px;
+      font-weight: 800;
+      border: 3px solid library.$blue;
+      background-color: library.$white;
+      color: library.$blue;
+  }
+
+  p {
+      margin-bottom: 10px;
+  }   
+}
+
+.Overlay {
+  @include library.overlay;
+
+}
