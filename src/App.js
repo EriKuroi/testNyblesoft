@@ -7,13 +7,12 @@ import Header from './components/header/Header';
 import NoteCard from './components/noteCard/NoteCard';
 import ClarifyFile from './components/clarifyFile/ClarifyFile';
 import NoteEditor from './components/noteEditor/NoteEditor';
-import notesFile from './notes.json';
 
 Modal.setAppElement('#root');
 
 function App() {
 
-  const [notes, setNotes] = useState(notesFile);
+  const [notes, setNotes] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [loadModalIsOpen, setLoadModalIsOpen] = useState(false);
   const [nowInEdit, setNowInEdit] = useState(null);
