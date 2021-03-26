@@ -34,6 +34,25 @@ main {
     width: 200px;
     font-size: 2.5rem;
   }
+  .no-results-frame{
+    padding: 10px;
+    margin:0 40px 0 20px;
+    color: library.$white;
+    h1{font-weight: bold;
+        font-size: 2rem;}
+  }
+  button{
+    color: inherit;
+    background-color: library.$blue;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    padding: 5px;
+    &:hover{
+      background-color: rgba(library.$blue, .9)
+    }
+
+  }
 }
 
 .note-modal {

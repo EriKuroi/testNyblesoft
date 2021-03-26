@@ -18,7 +18,7 @@ function App() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [loadModalIsOpen, setLoadModalIsOpen] = useState(false);
   const [nowInEdit, setNowInEdit] = useState(null);
-  const [searchResults, setSearchresults] = useState(mockSearchResult);
+  const [searchResults, setSearchresults] = useState(null);
 
   function openModal() {
     setIsOpen(true);
@@ -72,9 +72,18 @@ function App() {
 
   };
 
-  const handleSearch = () => {
-    console.log('search')
+  const handleSearch = (searchText) => {
+    const searchResultsArray = notes.reduce((acc, note) => {
+      if (note.hashtags.find(hashtag => hashtag === searchText)) {
+        acc.push(note);
+      }
+      return acc
+    }, []);
+    searchText ? setSearchresults(searchResultsArray) : setSearchresults(null);
   };
+  const handleNoSearchClick = () => {
+    setSearchresults(null);
+  }
   const handleFile = (event) => {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -106,7 +115,7 @@ function App() {
     const notesString = JSON.stringify(newNotes);
     saveToFile(notesString);
   };
-  const constructCards =(array)=>{
+  const constructCards = (array) => {
     return array.map(elem => <NoteCard
       key={elem.id}
       title={elem.title}
@@ -120,9 +129,15 @@ function App() {
     <>
       <Header handleSearch={handleSearch}></Header>
       <main>
-        <button className="addButton" onClick={addNote}>+</button>      
+        <button className="addButton" onClick={addNote}>+</button>
         {!searchResults && !!notes.length && constructCards(notes)}
-        {searchResults && constructCards(searchResults)}
+        {searchResults && !!searchResults.length && constructCards(searchResults)}
+        {searchResults && !searchResults.length &&
+          <article className="no-results-frame">
+            <h1>No search results</h1>
+            <button onClick={handleNoSearchClick}>Return to all notes</button>
+          </article>
+        }
         <button className="loadButton" onClick={openLoadModal}>Load</button>
         <Modal
           isOpen={modalIsOpen}
