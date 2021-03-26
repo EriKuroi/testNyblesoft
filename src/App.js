@@ -8,7 +8,6 @@ import NoteCard from './components/noteCard/NoteCard';
 import ClarifyFile from './components/clarifyFile/ClarifyFile';
 import NoteEditor from './components/noteEditor/NoteEditor';
 import notesFile from './notes.json'
-import mockSearchResult from './mockSearchResult.json';
 
 Modal.setAppElement('#root')
 
@@ -36,7 +35,18 @@ function App() {
 
   }
   const findCardIndex = (id) => notes.findIndex(elem => elem.id === id)
-
+  const handleSearch = (searchText) => {
+    const searchResultsArray = notes.reduce((acc, note) => {
+      if (note.hashtags.find(hashtag => hashtag === searchText)) {
+        acc.push(note);
+      }
+      return acc
+    }, []);
+    searchText ? setSearchresults(searchResultsArray) : setSearchresults(null);
+  };
+  const handleNoSearchClick = () => {
+    setSearchresults(null);
+  }
   const deleteCard = (id) => {
     let confirmed = window.confirm('Are you sure you want to delete this card? \n This action\'s result will be saved into new file');
     if (confirmed) {
@@ -53,7 +63,7 @@ function App() {
     openModal()
   };
   const handleHashtagClick = (hashtag) => {
-    console.log(hashtag)
+    handleSearch(hashtag.substring(1));
   };
   const handleCardClick = (type, data) => {
     switch (type) {
@@ -72,18 +82,7 @@ function App() {
 
   };
 
-  const handleSearch = (searchText) => {
-    const searchResultsArray = notes.reduce((acc, note) => {
-      if (note.hashtags.find(hashtag => hashtag === searchText)) {
-        acc.push(note);
-      }
-      return acc
-    }, []);
-    searchText ? setSearchresults(searchResultsArray) : setSearchresults(null);
-  };
-  const handleNoSearchClick = () => {
-    setSearchresults(null);
-  }
+  
   const handleFile = (event) => {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
