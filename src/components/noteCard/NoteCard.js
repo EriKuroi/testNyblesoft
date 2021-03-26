@@ -17,6 +17,7 @@ const NoteCard = ({ id, title, text, hashtags, handleCardClick }) => {
         <div
             className="note-card"
             onClick={handleClick}
+            tabIndex="1"
         >
             <div className="headline">
                 <div className="card-title" title={title}>

@@ -61,54 +61,54 @@ main {
     }
 
   }
+ 
+}
+.note-modal {
+  @include library.modal;
+  top: 5%;
+  left: 10%;
+  right: 10%;
+  bottom: 5%;
+  padding: 40px;
+  background-color: library.$background;
+  color: library.$text;
+}
 
-  .note-modal {
-    @include library.modal;
-    top: 5%;
-    left: 10%;
-    right: 10%;
-    bottom: 5%;
-    padding: 40px;
-    background-color: library.$background;
-    color: library.$text;
-  }
+.note-overlay {
+  @include library.overlay;
+}
 
-  .note-overlay {
-    @include library.overlay;
-  }
+.Modal {
+  top: 40%;
+  left: 35%;
+  right: 35%;
+  bottom: 40%;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include library.modal;
 
-  .Modal {
+  $pad: 2px;
+
+  button {
+    position: fixed;
     top: 40%;
-    left: 35%;
     right: 35%;
-    bottom: 40%;
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    @include library.modal;
-
-    $pad: 2px;
-
-    button {
-      position: fixed;
-      top: 40%;
-      right: 35%;
-      width: 30px;
-      height: 30px;
-      font-weight: 800;
-      border: 3px solid library.$blue;
-      background-color: library.$white;
-      color: library.$blue;
-    }
-
-    p {
-      margin-bottom: 10px;
-    }
+    width: 30px;
+    height: 30px;
+    font-weight: 800;
+    border: 3px solid library.$blue;
+    background-color: library.$white;
+    color: library.$blue;
   }
 
-  .Overlay {
-    @include library.overlay;
-
+  p {
+    margin-bottom: 10px;
   }
+}
+
+.Overlay {
+  @include library.overlay;
+
 }

@@ -1,5 +1,6 @@
 import './noteEditor.scss';
 import { useState, useRef, useEffect } from 'react';
+import ReactTooltip from 'react-tooltip';
 import uuid from 'react-uuid';
 import PropTypes from 'prop-types';
 
@@ -99,9 +100,11 @@ const NoteEditor = ({ handleSave, closeModal, currentEdited }) => {
                     id="save"
                     className="saveButton"
                     onClick={handleSaveClick}
+                    data-tip="Save to local file"
                 >
                     Save
                 </button>
+                <ReactTooltip />
             </div>
         </>
     )

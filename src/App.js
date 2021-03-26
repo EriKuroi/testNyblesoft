@@ -2,7 +2,7 @@ import './App.scss';
 import { useState } from 'react';
 import { saveAs } from 'file-saver';
 import Modal from 'react-modal';
-
+import ReactTooltip from 'react-tooltip';
 import Header from './components/header/Header';
 import NoteCard from './components/noteCard/NoteCard';
 import ClarifyFile from './components/clarifyFile/ClarifyFile';
@@ -128,7 +128,8 @@ function App() {
     <>
       <Header handleSearch={handleSearch}></Header>
       <main>
-        <button className="addButton" onClick={addNote}>+</button>
+        <button 
+        className="addButton" onClick={addNote}>+</button>
         {!searchResults && !!notes.length && constructCards(notes)}
         {searchResults && !!searchResults.length && constructCards(searchResults)}
         {searchResults && !searchResults.length &&
@@ -137,7 +138,13 @@ function App() {
             <button onClick={handleNoSearchClick}>Return to all notes</button>
           </article>
         }
-        <button className="loadButton" onClick={openLoadModal}>Load</button>
+        <button 
+        className="loadButton" 
+        onClick={openLoadModal}
+        data-tip="Load your notes from local file"
+        >
+          Load
+        </button>
         <Modal
           isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
@@ -165,6 +172,7 @@ function App() {
             closeModal={closeModal}
           ></ClarifyFile>
         </Modal>
+        <ReactTooltip />
       </main>
     </>
   );
